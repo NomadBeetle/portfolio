@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;900&display=swap');
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* CRT Scanline Overlay */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    z-index: 100;
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none;
+}
+
+/* OS Window Card Styling */
+.os-window {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 28px solid rgba(30, 41, 59, 1);
+    border-radius: 8px;
+    position: relative;
+}
+
+/* The Mac-style Window Dots */
+.os-window::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: 12px;
+    width: 6px; height: 6px;
+    background: #ff5f56;
+    border-radius: 50%;
+    box-shadow: 12px 0 0 #ffbd2e, 24px 0 0 #27c93f;
+}
+
+.glass-nav {
+    background: rgba(2, 6, 23, 0.7);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Lofi Visualizer Animation */
+.bar.playing {
+    animation: barGrow 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes barGrow {
+    from { height: 4px; }
+    to { height: 12px; }
+}
+
+.sticker {
+    user-select: none;
+    transition: transform 0.3s ease;
+}
+
+.sticker:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.sticker:active {
+    transform: scale(0.9) rotate(-5deg);
+}
+
+/* Neon Flicker Animation */
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 
+            0 0 4px #fff,
+            0 0 11px #fff,
+            0 0 19px #fff,
+            0 0 40px var(--accent),
+            0 0 80px var(--accent),
+            0 0 90px var(--accent),
+            0 0 100px var(--accent),
+            0 0 150px var(--accent);
+    }
+    20%, 24%, 55% {        
+        text-shadow: none;
+        opacity: 0.5;
+    }
+}
+
+/* Steady Neon Glow (No Flicker) */
+.neon-glow {
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, #a855f7, #22d3ee);
+    filter: drop-shadow(0 0 15px rgba(168,85,247,0.5));
+    transition: filter 0.3s ease;
+}
+
+.neon-glow:hover {
+    filter: drop-shadow(0 0 25px rgba(34,211,238,0.8));
+}
+
+.os-window:has(a[href*="RubricAI"]) {
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.05), rgba(0, 0, 0, 0.9));
+}
