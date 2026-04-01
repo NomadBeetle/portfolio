@@ -113,4 +113,37 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+
+const dot = document.querySelector(".cursor-dot");
+const outline = document.querySelector(".cursor-outline");
+
+window.addEventListener("mousemove", (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    // Direct follow for the dot
+    dot.style.left = `${posX}px`;
+    dot.style.top = `${posY}px`;
+
+    // Smooth follow for the outline
+    outline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+    }, { duration: 500, fill: "forwards" });
+});
+
+// Add hover effect for buttons and links
+const links = document.querySelectorAll('a, button');
+links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        outline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        outline.style.backgroundColor = 'rgba(168, 85, 247, 0.1)';
+    });
+    link.addEventListener('mouseleave', () => {
+        outline.style.transform = 'translate(-50%, -50%) scale(1)';
+        outline.style.backgroundColor = 'transparent';
+    });
+});
+
+
 init();

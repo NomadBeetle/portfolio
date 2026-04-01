@@ -102,3 +102,44 @@ body::before {
     border: 1px solid rgba(168, 85, 247, 0.4);
     background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.05), rgba(0, 0, 0, 0.9));
 }
+
+
+
+/* Custom Cursor Styles */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #a855f7; /* Your purple theme */
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(168, 85, 247, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9998;
+    pointer-events: none;
+    transition: all 0.15s ease-out; /* Smooth follow effect */
+}
+
+/* Hide the default cursor */
+html, body {
+    cursor: none;
+}
+
+/* Show default cursor on mobile since custom ones break touch */
+@media (max-width: 768px) {
+    .cursor-dot, .cursor-outline { display: none; }
+    html, body { cursor: auto; }
+}
