@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <!-- GSAP for premium animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body class="bg-[#020617] text-slate-300 overflow-x-hidden">
     <div class="cursor-dot"></div>
@@ -68,7 +71,7 @@
                 </p>
                 
                 <div class="grid grid-cols-2 sm:flex flex-wrap gap-3 z-30">
-                    <a href="#projects" class="mono border border-purple-500/50 px-4 py-2 text-[12px] text-purple-400 hover:bg-purple-500 hover:text-white transition-all transform hover:scale-105 text-center">
+                    <a href="#projects" class="magnetic mono border border-purple-500/50 px-4 py-2 text-[12px] text-purple-400 hover:bg-purple-500 hover:text-white transition-all transform hover:scale-105 text-center">
                         cd /projects
                     </a>
                     <a href="https://github.com/NomadBeetle" target="_blank" class="mono border border-slate-500/50 px-4 py-2 text-[12px] text-slate-300 hover:bg-white hover:text-black transition-all transform hover:scale-105 flex items-center justify-center gap-2">
@@ -89,11 +92,11 @@
                 </div>
             </div>
 
-            <div class="relative group order-1 lg:order-2 z-20">
+            <div class="hero-image-wrap relative group order-1 lg:order-2 z-20">
                 <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
                 <div class="os-window w-64 h-64 md:w-80 md:h-80 overflow-hidden shadow-2xl">
                     <img src="./LinkedIn.jpeg" alt="Azaan Ahmed" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105">
-                    <div class="absolute bottom-4 left-4 mono text-[10px] bg-black/80 px-2 py-1 text-cyan-400 border border-cyan-400/30">
+                    <div class="user-id-badge absolute bottom-4 left-4 mono text-[10px] bg-black/80 px-2 py-1 text-cyan-400 border border-cyan-400/30" data-text="USER_ID: NomadBeetle" id="user-id-badge">
                         USER_ID: NomadBeetle
                     </div>
                 </div>
@@ -101,7 +104,7 @@
         </section>
 
         <!-- ABOUT ME SECTION -->
-<section id="about" class="py-20">
+<section id="about" class="py-20 reveal">
     <h2 class="mono text-2xl text-white mb-12 flex items-center gap-2">
         <span class="text-purple-500">#</span> whoami --bio
     </h2>
@@ -117,14 +120,14 @@
 </section>
 
 <!-- TECH STACK SECTION -->
-<section id="tech-stack" class="py-20">
+<section id="tech-stack" class="py-20 reveal">
     <h2 class="mono text-2xl text-white mb-12 flex items-center gap-2">
         <span class="text-purple-500">#</span> cat ./tech_stack.json
     </h2>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         
-        <div class="os-window p-6 bg-black/70">
+        <div class="os-window p-6 bg-black/70 reveal reveal-delay-1">
             <h3 class="mono text-purple-400 text-sm mb-4">languages</h3>
             <div class="flex flex-wrap gap-2">
                 <span class="px-3 py-1 text-xs bg-purple-900/30 border border-purple-500/20 rounded">Python</span>
@@ -167,7 +170,7 @@
     </div>
 </section>
 
-        <section id="system-core" class="py-20 grid md:grid-cols-2 gap-12 items-center">
+        <section id="system-core" class="py-20 grid md:grid-cols-2 gap-12 items-center reveal">
             <div class="os-window h-64 md:h-80 p-6 font-mono text-[11px] leading-relaxed overflow-hidden bg-black/90">
                 <div class="text-green-500">> system_fetch --achievements</div>
                 <div class="text-slate-300">LeetCode_Solve_Count: 75+</div>
@@ -178,8 +181,37 @@
                 <div class="text-slate-300">Python: Stable</div>
                 <div class="text-slate-300">Java: Active</div>
                 <div class="text-purple-400 mt-2 animate-pulse">_</div>
-                <div class="absolute bottom-4 right-4 text-white/20 text-[8px] tracking-[4px]">AZ_OS_v1.0</div>
+                <div class="mt-4 pt-4 border-t border-white/5 space-y-1 opacity-60 text-[9px]">
+    <div class="flex justify-between">
+        <span>CPU_LOAD:</span>
+        <span id="cpu-load" class="text-green-500">02%</span>
+    </div>
+    <div class="flex justify-between">
+        <span>MEM_USAGE:</span>
+        <span id="mem-usage" class="text-green-500">441MB</span>
+    </div>
+    <div class="flex justify-between">
+        <span>UPTIME:</span>
+        <span id="uptime" class="text-cyan-400">00:00:00</span>
+    </div>
+</div>
+<div class="absolute bottom-4 right-4 text-white/20 text-[8px] tracking-[4px]">AZ_OS_v1.0</div>
             </div>
+
+            <div class="mt-4 pt-4 border-t border-white/5 space-y-1 opacity-60">
+    <div class="flex justify-between">
+        <span>CPU_LOAD:</span>
+        <span id="cpu-load">02%</span>
+    </div>
+    <div class="flex justify-between">
+        <span>MEM_USAGE:</span>
+        <span id="mem-usage">441MB</span>
+    </div>
+    <div class="flex justify-between">
+        <span>UPTIME:</span>
+        <span id="uptime">00:00:00</span>
+    </div>
+</div>
 
             <div class="space-y-6">
                 <h2 class="mono text-white text-xl flex items-center gap-2">
@@ -191,34 +223,40 @@
                             <span>Python</span>
                             <span class="text-purple-500 font-bold">STABLE [90%]</span>
                         </div>
-                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden"><div class="bg-purple-500 h-full w-[90%]"></div></div>
+                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden"><div class="skill-bar-fill bg-purple-500 h-full w-[90%]" style="--target-width: 90%"></div></div>
                     </div>
                     <div class="group">
                         <div class="flex justify-between mb-1">
                             <span>Java</span>
                             <span class="text-cyan-500 font-bold">STABLE [75%]</span>
                         </div>
-                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden"><div class="bg-cyan-500 h-full w-[75%]"></div></div>
+                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden">
+    <div class="skill-bar-fill bg-cyan-500 h-full w-[75%]" style="--target-width: 75%"></div>
+</div>
                     </div>
                     <div class="group">
                         <div class="flex justify-between mb-1">
                             <span>DSA</span>
                             <span class="text-pink-500 font-bold">OPTIMIZING [65%]</span>
                         </div>
-                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden"><div class="bg-pink-500 h-full w-[65%]"></div></div>
+                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden">
+    <div class="skill-bar-fill bg-pink-500 h-full w-[65%]" style="--target-width: 65%"></div>
+</div>
                     </div>
                     <div class="group">
                         <div class="flex justify-between mb-1">
                             <span>Flutter</span>
                             <span class="text-yellow-500 font-bold animate-pulse">INSTALLING... [20%]</span>
                         </div>
-                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden"><div class="bg-yellow-500 h-full w-[20%]"></div></div>
+                        <div class="w-full bg-white/5 h-1 border border-white/10 overflow-hidden">
+    <div class="skill-bar-fill bg-yellow-500 h-full w-[20%]" style="--target-width: 20%"></div>
+</div>
                     </div>
                 </div>
             </div>
         </section>
 
-<section id="achievements" class="py-20">
+<section id="achievements" class="py-20 reveal">
     <h2 class="mono text-2xl text-white mb-12 flex items-center gap-2">
         <span class="text-purple-500">#</span> cat ./achievements.log
     </h2>
@@ -246,7 +284,7 @@
     </div>
 </section>
 
-<section id="education" class="py-20">
+<section id="education" class="py-20 reveal">
     <h2 class="mono text-2xl text-white mb-12 flex items-center gap-2">
         <span class="text-purple-500">#</span> cat ./education.history
     </h2>
@@ -271,14 +309,14 @@
     </div>
 </section>
 
-        <section id="projects" class="py-24">
+        <section id="projects" class="py-24 reveal">
     <h2 class="mono text-2xl text-white mb-12 flex items-center gap-2">
         <span class="text-purple-500">#</span> ls ./production_builds --verify
     </h2>
     
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <div class="os-window p-6 hover:-translate-y-2 transition-transform duration-300 border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.1)]">
+        <div class="os-window tilt-card p-6 hover:-translate-y-2 transition-transform duration-300 border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.1)]">
             <div class="flex justify-between items-start mb-4">
                 <h3 class="mono text-white text-lg">RubricAI.sys</h3>
                 <span class="text-[10px] text-purple-400 animate-pulse">● STABLE_RELEASE</span>
@@ -294,7 +332,7 @@
             </a>
         </div>
 
-        <div class="os-window p-6 hover:-translate-y-2 transition-transform duration-300">
+        <div class="os-window tilt-card p-6 hover:-translate-y-2 transition-transform duration-300">
             <div class="flex justify-between items-start mb-4">
                 <h3 class="mono text-white text-lg">FlightClub.exe</h3>
             </div>
@@ -309,7 +347,7 @@
             </a>
         </div>
 
-        <div class="os-window p-6 hover:-translate-y-2 transition-transform duration-300">
+        <div class="os-window tilt-card p-6 hover:-translate-y-2 transition-transform duration-300">
             <div class="flex justify-between items-start mb-4">
                 <h3 class="mono text-white text-lg">Vaultify.bin</h3>
             </div>
@@ -355,6 +393,20 @@
             </div>
         </section>
     </main>
+
+    <div id="toast">[ COPIED TO CLIPBOARD ]</div>
+    <div class="fixed bottom-6 left-6 z-50 hidden lg:flex flex-col gap-2 pointer-events-none">
+    <div class="mono text-[10px] bg-black/60 backdrop-blur-md border border-white/10 p-3 rounded-md space-y-2 opacity-40 hover:opacity-100 transition-opacity duration-500">
+        <div class="text-purple-500 font-bold border-b border-white/10 pb-1 mb-2">SYSTEM_CONTROLS</div>
+        <div class="flex gap-4">
+            <span class="text-slate-500">[<span class="text-cyan-400">H</span>] HOME</span>
+            <span class="text-slate-500">[<span class="text-cyan-400">P</span>] PROJECTS</span>
+            <span class="text-slate-500">[<span class="text-cyan-400">A</span>] ABOUT</span>
+            <span class="text-slate-500">[<span class="text-cyan-400">S</span>] SKILLS</span>
+            <span class="text-slate-500">[<span class="text-cyan-400">C</span>] CONTACT</span>
+        </div>
+    </div>
+</div>
 
     <footer class="py-10 text-center mono text-[10px] opacity-50">
         (c) 2026 NomadBeetle OS // Built with Tailwind & Three.js

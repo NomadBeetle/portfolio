@@ -143,3 +143,213 @@ html, body {
     .cursor-dot, .cursor-outline { display: none; }
     html, body { cursor: auto; }
 }
+
+/* ========================
+   SCROLL REVEAL BASE STATE
+   ======================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ========================
+   HERO CINEMATIC ENTRY
+   ======================== */
+.hero-line {
+    opacity: 0;
+    transform: translateY(40px) skewY(2deg);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+.hero-line.visible {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+}
+
+/* ========================
+   CARD TILT (3D hover)
+   ======================== */
+.tilt-card {
+    transform-style: preserve-3d;
+    transition: box-shadow 0.4s ease;
+}
+.tilt-card:hover {
+    box-shadow: 0 20px 60px rgba(168, 85, 247, 0.18),
+                0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* ========================
+   MAGNETIC BUTTON
+   ======================== */
+.magnetic {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+/* ========================
+   SKILL BAR ANIMATION
+   ======================== */
+.skill-bar-fill {
+    width: 0% !important;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-bar-fill.animated {
+    width: var(--target-width) !important;
+}
+
+/* ========================
+   ACHIEVEMENT COUNTER
+   ======================== */
+.count-up {
+    display: inline-block;
+}
+
+/* ========================
+   TOAST NOTIFICATION
+   ======================== */
+#toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    color: #a855f7;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    z-index: 9999;
+    letter-spacing: 2px;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    backdrop-filter: blur(12px);
+}
+#toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* ========================
+   TYPING CURSOR
+   ======================== */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: #a855f7;
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* ========================
+   PROFILE IMAGE PARALLAX
+   ======================== */
+.hero-image-wrap {
+    transition: transform 0.15s ease-out;
+    will-change: transform;
+}
+
+/* ========================
+   GLITCH EFFECT (user ID)
+   ======================== */
+@keyframes glitch {
+    0%   { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 0); }
+    20%  { clip-path: inset(92% 0 1% 0);  transform: translate(2px, 0); }
+    40%  { clip-path: inset(43% 0 1% 0);  transform: translate(-1px, 0); }
+    60%  { clip-path: inset(25% 0 58% 0); transform: translate(1px, 0); }
+    80%  { clip-path: inset(54% 0 7% 0);  transform: translate(-2px, 0); }
+    100% { clip-path: inset(58% 0 43% 0); transform: translate(0); }
+}
+.user-id-badge:hover::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0; top: 0;
+    color: #22d3ee;
+    animation: glitch 0.4s linear infinite;
+}
+.user-id-badge {
+    position: relative;
+    cursor: pointer;
+}
+
+/* ========================
+   STAR FIELD DEPTH
+   ======================== */
+#threejs-container {
+    transition: opacity 0.5s ease;
+}
+
+/* ========================
+   NAV ACTIVE GLOW
+   ======================== */
+.glass-nav {
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-nav.scrolled {
+    background: rgba(2, 6, 23, 0.92);
+    box-shadow: 0 1px 0 rgba(168, 85, 247, 0.15);
+}
+
+/* ========================
+   SECTION TRANSITION LINE
+   ======================== */
+.section-line {
+    width: 0;
+    height: 1px;
+    background: linear-gradient(to right, #a855f7, #22d3ee, transparent);
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 2rem;
+}
+.section-line.animated {
+    width: 200px;
+}
+
+/* ========================
+   REDUCED MOTION
+   ======================== */
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .hero-line, .skill-bar-fill,
+    .magnetic, .tilt-card { transition: none !important; }
+    .typing-cursor { animation: none !important; }
+}
+
+/* ========================
+   PROJECT CARD GLOW PULSE
+   ======================== */
+@keyframes borderPulse {
+    0%, 100% { border-color: rgba(168, 85, 247, 0.3); }
+    50% { border-color: rgba(168, 85, 247, 0.7); }
+}
+.os-window:has(a[href*="RubricAI"]) {
+    animation: borderPulse 3s ease-in-out infinite;
+}
+
+/* Shortcut Flash Effect */
+.key-flash {
+    animation: keyHighlight 0.4s ease-out;
+}
+
+@keyframes keyHighlight {
+    0% { color: #22d3ee; text-shadow: 0 0 15px #22d3ee; transform: scale(1.2); }
+    100% { color: inherit; text-shadow: none; transform: scale(1); }
+}
